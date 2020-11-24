@@ -28,7 +28,7 @@ class Player:
         self.cards.append(card)
 
     def shows_card(self):
-        card_showed = self.cards.pop()
+        card_showed = self.cards.pop(0)
         return card_showed
 
 
@@ -104,11 +104,11 @@ while True:
         print(card_player2)
 
         if card_player1.rank > card_player2.rank:
-            player1.cards.insert(0, card_player1)
-            player1.cards.insert(0, card_player2)
+            player1.cards.append(card_player1)
+            player1.cards.append(card_player2)
         elif card_player1.rank < card_player2.rank:
-            player2.cards.insert(0, card_player2)
-            player2.cards.insert(0, card_player1)
+            player2.cards.append(card_player2)
+            player2.cards.append(card_player1)
 
         else:
             print("Same rank value")
@@ -116,13 +116,19 @@ while True:
             cards2 = [card_player2]
             if len(player1.cards) > 3 and len(player2.cards) > 3:
                 for i in range(1, 4):
-                    cards1.append(player1.cards.pop())
-                    cards2.append(player2.cards.pop())
+                    cards1.append(player1.cards.pop(0))
+                    cards2.append(player2.cards.pop(0))
                     i += 1
             else:
-                for i in range(1, len(player1.cards)):
-                    cards1.append(player1.cards.pop())
-                    cards2.append(player2.cards.pop())
+                limit_range = 0
+                if len(player1.cards) > len(player2.cards):
+                    limit_range = len(player2.cards)
+                else:
+                    limit_range = len(player1.cards)
+
+                for i in range(1, limit_range):
+                    cards1.append(player1.cards.pop(0))
+                    cards2.append(player2.cards.pop(0))
                     i += 1
 
             sum_cards1 = 0
@@ -138,22 +144,26 @@ while True:
             # texto = input("Compare sums")
             print("Comparing...")
             if sum_cards1 < sum_cards2:
-                for item in cards1:
-                    player2.cards.insert(0, item)
-                for item in cards2:
-                    player2.cards.insert(0, item)
+                player2.cards.extend(cards1)
+                player2.cards.extend(cards2)
+                # for item in cards1:
+                #     player2.cards.append(item)
+                # for item in cards2:
+                #     player2.cards.append(item)
             else:
-                for item in cards2:
-                    player1.cards.insert(0, item)
-                for item in cards1:
-                    player1.cards.insert(0, item)
+                player1.cards.extend(cards2)
+                player1.cards.extend(cards1)
+                # for item in cards2:
+                #     player1.cards.append(item)
+                # for item in cards1:
+                #     player1.cards.append(item)
     else:
         print("Ends game")
         break
     print(player1)
     print(player2)
-    print(length_p1_cards)
-    print(length_p2_cards)
+    # print(length_p1_cards)
+    # print(length_p2_cards)
     if length_p1_cards > 1:
         print("Player 1 wins")
     else:
