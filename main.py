@@ -53,7 +53,7 @@ class Deck:
         # for item in self.cards:
         # print(item.__str__(), end=" / ")
 
-    def reparte(self, player1, player2):
+    def deal_one(self, player1, player2):
         # if to_player == True, card goes to player1, else to player2
         to_player = True
         shuffle(self.cards)
@@ -81,7 +81,7 @@ print("**********************************")
 
 deck.shuffle_cards()
 # print(deck)
-deck.reparte(player1, player2)
+deck.deal_one(player1, player2)
 
 # print("Player 1 cards:")
 print(player1)
